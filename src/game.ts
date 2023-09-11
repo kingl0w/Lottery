@@ -18,11 +18,13 @@ export class LotteryGame {
     return this.winningNumbers;
   }
 
-  public checkTicket(playerNumbers: number[]): boolean {
-    if (playerNumbers == this.winningNumbers) {
-      return true;
-    } else {
-      return false;
+  public checkTicket(playerNumbers: number[]): number {
+    let count = 0;
+    for (const playerNumber of playerNumbers) {
+      if (this.winningNumbers.includes(playerNumber)) {
+        count++;
+      }
     }
+    return count;
   }
 }

@@ -10,7 +10,7 @@ runButton?.addEventListener('click', () => {
 
   game.drawLottery();
 
-  const didWin = game.checkTicket(player.getTicketNumbers());
+  const matchedNumbers = game.checkTicket(player.getTicketNumbers());
 
   //displays the winning numbers in the .balls elements
   updateBalls(game.getWinningNumbers());
@@ -19,7 +19,7 @@ runButton?.addEventListener('click', () => {
   updateComparisonNumbers(player.getTicketNumbers());
 
   //displays the result message
-  updateResultMessage(didWin);
+  updateResultMessage(matchedNumbers);
 });
 
 function updateBalls(winningNumbers: number[]): void {
@@ -38,11 +38,16 @@ function updateComparisonNumbers(playerNumbers: number[]): void {
   }
 }
 
-function updateResultMessage(didWin: boolean): void {
+function updateResultMessage(matchedNumbers: number): void {
   const resultElement = document.getElementById('result');
   if (resultElement) {
-    resultElement.textContent = didWin
-      ? 'Congratulations! You won!'
-      : 'Sorry, better luck next time';
+    if (matchedNumbers === 0) {
+      resultElement.textContent =
+        'Sorry, none of your numbers matched. Better luck next time!';
+    } else {
+      resultElement.textContent = `You matched ${matchedNumbers} number${
+        matchedNumbers > 1 ? 's' : ''
+      }`;
+    }
   }
 }
